@@ -112,6 +112,7 @@ fn main() {
                     Err(_) => todo!(),
                 }
             } else {
+                let start_time = std::time::Instant::now();
                 let client = clients.get_mut(&key).unwrap();
 
                 match client.stream.read(&mut client.buf[client.nread..]) {
@@ -140,6 +141,7 @@ fn main() {
                     }
                 ))
                 .unwrap();
+                println!("Handled in {} ns", (std::time::Instant::now() - start_time).as_nanos());
             }
         }
     }
